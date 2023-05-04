@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './MenuList.css';
-import CategoryItems from './CategoryList';
+import './CategoryList.css';
 
-function MenuItems() {
+function CategoryItems() {
   const [items, setItems] = useState([]);
-  
 
   useEffect(() => {
-    axios.get("https://localhost:7237/api/MenuTables")
+    axios.get("https://localhost:7237/api/CategoryTables")
       .then(response => {
         setItems(response.data);
         console.log(response.data);
@@ -34,12 +32,12 @@ function MenuItems() {
   }
 
   return (
-<div className='MenuList'>
+<div className='CategoryList'>
    <center> <table>
     <thead>
       <tr>
-        <th>Menu ID</th>
-        <th>Menu Name</th>
+        <th>Category ID</th>
+        <th>Category Name</th>
         <th>Description</th>
         <th>Image</th>
         <th>Edit</th>
@@ -48,11 +46,11 @@ function MenuItems() {
     </thead>
     <tbody>
       {items.map(item => (
-        <tr key={item.menuId} onClick={() => handleClick(item)}>
-          <td>{item.menuId}</td>
-          <td>{item.menuName}</td>
-          <td>{item.menuDescription}</td>
-          <td><img src = {item.menuImage} alt = {item.menuName} /></td>
+        <tr key={item.categoryId} onClick={() => handleClick(item)}>
+          <td>{item.categoryId}</td>
+          <td>{item.categoryName}</td>
+          <td>{item.categoryDescription}</td>
+          <td><img src = {item.categoryImage} alt = {item.categoryName} /></td>
           <td><button onClick={() => handleEdit(item)}>Edit</button></td>
           <td><button onClick={() => handleDelete(item)}>Delete</button></td>
         </tr>
@@ -66,4 +64,4 @@ function MenuItems() {
   
 }
 
-export default MenuItems;
+export default CategoryItems;
