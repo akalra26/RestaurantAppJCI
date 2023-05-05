@@ -21,14 +21,43 @@ namespace RestaurantAppProject.Controllers
         }
 
         // GET: api/CategoryTables
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryTable>>> GetCategoryTables()
+        [HttpGet("menuId={menuId}")]
+        public async Task<ActionResult<IEnumerable<CategoryTable>>> GetCategoryTables(int menuId)
         {
             if (_context.CategoryTables == null)
             {
                 return NotFound();
             }
-            return await _context.CategoryTables.ToListAsync();
+
+            List<MenuCategory> menuCategories = await _context.MenuCategories.ToListAsync();
+
+            List<CategoryTable> categories = await _context.CategoryTables.ToListAsync();
+
+            //List<CategoryTable> filteredList = categories.FindAll(cat => cat.IsDeleted == false);
+            List<int?> filteredList = new List<int?>();
+            List<CategoryTable> newcatlist = new List<CategoryTable>();
+            foreach (var  menuCat in menuCategories)
+            {
+                if(menuCat.MenuId == menuId) {
+                    filteredList.Add(menuCat.CategoryId);
+                }
+            }
+
+            foreach(var category in categories)
+            {
+                if (filteredList.Contains(category.CategoryId) && category.IsDeleted == false)
+                {
+                    newcatlist.Add(category);
+                }
+            }
+
+            if(newcatlist.Count  == 0)
+            {
+                return NotFound();
+            }
+            
+            return Ok(newcatlist);
+            //return await _context.CategoryTables.ToListAsync();
         }
 
         // GET: api/CategoryTables/5
@@ -41,7 +70,7 @@ namespace RestaurantAppProject.Controllers
             }
             var categoryTable = await _context.CategoryTables.FindAsync(id);
 
-            if (categoryTable == null)
+            if (categoryTable == null || categoryTable.IsDeleted == true)
             {
                 return NotFound();
             }
@@ -137,6 +166,17 @@ namespace RestaurantAppProject.Controllers
             if (categoryTable == null)
             {
                 return NotFound();
+            }
+
+            List<CategoryTable> categoryTables = await _context.CategoryTables.ToListAsync();
+            foreach(var categoryTab in categoryTables)
+            {
+                if(categoryTab.CategoryId == id && categoryTab.IsDeleted == false)
+                {
+                    categoryTab.IsDeleted = true;
+                    _context.CategoryTables.Update(categoryTab);
+                    _context.SaveChanges();
+                }
             }
 
             List<MenuCategory> menuCategories = await _context.MenuCategories.ToListAsync();

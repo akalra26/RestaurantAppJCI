@@ -14,6 +14,7 @@ namespace RestaurantAppProject.Models
         public string? MenuName { get; set; }
         public string? MenuDescription { get; set; }
         public string? MenuImage { get; set; }
+        public bool? IsDeleted { get; set; }
 
         public virtual ICollection<MenuCategory> MenuCategories { get; set; }
     }

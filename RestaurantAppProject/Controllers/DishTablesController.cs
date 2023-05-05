@@ -21,14 +21,41 @@ namespace RestaurantAppProject.Controllers
         }
 
         // GET: api/DishTables
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<DishTable>>> GetDishTables()
+        [HttpGet("categoryId={categoryId}")]
+        public async Task<ActionResult<IEnumerable<DishTable>>> GetDishTables(int categoryId)
         {
           if (_context.DishTables == null)
           {
               return NotFound();
           }
-            return await _context.DishTables.ToListAsync();
+            List<DishTable> dishes = await _context.DishTables.ToListAsync();
+
+            List<CategoryDish> categoryDishes = await _context.CategoryDishes.ToListAsync();
+            List<int?> filteredList = new List<int?>();
+            List<DishTable> newdishlist = new List<DishTable>();
+            //List<DishTable> filteredList = dishes.FindAll(cat => cat.IsDeleted == false);
+            foreach (var catDish in categoryDishes)
+            {
+                if (catDish.CategoryId == categoryId)
+                {
+                    filteredList.Add(catDish.DishId);
+                }
+            }
+
+            foreach (var dish in dishes)
+            {
+                if (filteredList.Contains(dish.DishId) && dish.IsDeleted == false)
+                {
+                    newdishlist.Add(dish);
+                }
+            }
+
+            if (newdishlist.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(newdishlist);
+            //return await _context.DishTables.ToListAsync();
         }
 
         // GET: api/DishTables/5
@@ -41,7 +68,7 @@ namespace RestaurantAppProject.Controllers
           }
             var dishTable = await _context.DishTables.FindAsync(id);
 
-            if (dishTable == null)
+            if (dishTable == null || dishTable.IsDeleted == true) 
             {
                 return NotFound();
             }
@@ -129,6 +156,17 @@ namespace RestaurantAppProject.Controllers
             if (dishTable == null)
             {
                 return NotFound();
+            }
+
+            List<DishTable> dishTables = await _context.DishTables.ToListAsync();
+            foreach(var DishTab in dishTables)
+            {
+                if(DishTab.DishId == id && DishTab.IsDeleted == false)
+                {
+                    DishTab.IsDeleted = true;
+                    _context.DishTables.Update(DishTab);
+                    _context.SaveChanges();
+                }
             }
 
             List<CategoryDish> categoryDishes = await _context.CategoryDishes.ToListAsync();

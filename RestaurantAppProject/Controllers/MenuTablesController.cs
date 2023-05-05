@@ -28,7 +28,11 @@ namespace RestaurantAppProject.Controllers
           {
               return NotFound();
           }
-            return await _context.MenuTables.ToListAsync();
+
+            List<MenuTable> menus = await _context.MenuTables.ToListAsync();
+            List<MenuTable> filteredList = menus.FindAll(cat => cat.IsDeleted == false);
+            return Ok(filteredList);
+            //return await _context.MenuTables.ToListAsync();
         }
 
         // GET: api/MenuTables/5
@@ -41,7 +45,7 @@ namespace RestaurantAppProject.Controllers
           }
             var menuTable = await _context.MenuTables.FindAsync(id);
 
-            if (menuTable == null)
+            if (menuTable == null || menuTable.IsDeleted == true)
             {
                 return NotFound();
             }
@@ -125,6 +129,16 @@ namespace RestaurantAppProject.Controllers
                 return NotFound();
             }
 
+            List<MenuTable> menuTables = await _context.MenuTables.ToListAsync();
+            foreach(var menuTab in menuTables)
+            {
+                if (menuTab.MenuId == id && menuTab.IsDeleted == false)
+                {
+                    menuTab.IsDeleted = true;
+                    _context.MenuTables.Update(menuTab);
+                    _context.SaveChanges();
+                }
+            }
             
             List<MenuCategory> menuCategories = await _context.MenuCategories.ToListAsync();
             foreach (var menuCat in menuCategories)
@@ -139,7 +153,7 @@ namespace RestaurantAppProject.Controllers
 
 
 
-            //.MenuTables.Remove(menuTable);
+            //_context.MenuTables.Remove(menuTable);
             await _context.SaveChangesAsync();
 
             return NoContent();

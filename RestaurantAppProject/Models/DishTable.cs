@@ -16,6 +16,7 @@ namespace RestaurantAppProject.Models
         public decimal? DishPrice { get; set; }
         public string? DishImage { get; set; }
         public string? Nature { get; set; }
+        public bool? IsDeleted { get; set; }
 
         public virtual ICollection<CategoryDish> CategoryDishes { get; set; }
     }

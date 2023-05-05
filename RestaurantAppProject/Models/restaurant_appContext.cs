@@ -77,6 +77,8 @@ namespace RestaurantAppProject.Models
                 entity.Property(e => e.CategoryName)
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
             });
 
             modelBuilder.Entity<DishTable>(entity =>
@@ -99,6 +101,8 @@ namespace RestaurantAppProject.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.DishPrice).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Nature)
                     .HasMaxLength(255)
@@ -139,6 +143,8 @@ namespace RestaurantAppProject.Models
                 entity.ToTable("Menu_table");
 
                 entity.Property(e => e.MenuId).HasColumnName("MenuID");
+
+                entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.MenuDescription).HasColumnType("text");
 
