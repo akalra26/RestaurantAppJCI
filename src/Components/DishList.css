@@ -1,16 +1,6 @@
-/* .MenuList{
-
-} */
-
 img{
     height: 70px;
     width: 70px;
     display: flex;
     justify-content: center;
-}
-
-.MenuListAnchor{
-    text-decoration: none;
-    color: black;
-    
 }

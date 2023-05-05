@@ -4,3 +4,8 @@ img{
     display: flex;
     justify-content: center;
 }
+
+.CategoryListAnchor{
+    text-decoration: none;
+    color: black;
+}
