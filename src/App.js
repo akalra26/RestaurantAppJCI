@@ -4,8 +4,10 @@ import MenuItems from './Components/MenuList';
 import Navbar from './Components/Navbar';
 import CategoryItems from './Components/CategoryList';
 import DishItems from './Components/DishList';
-import{BrowserRouter as Router,Routes,Route} from "react-router-dom"
-import AddMenu from './Components/AddMenu';
+import{BrowserRouter as Router,Routes,Route, Navigate} from "react-router-dom"
+import EditMenu from './Components/EditMenu';
+import Home from './Components/Home';
+import About from './Components/About';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -16,7 +18,11 @@ function App() {
       <p>Love Food, Live Food</p>
       <Router>
         <Routes>
-          <Route path = "/" element = {<AddMenu/>} />
+          <Route path = "/" element = {<MenuItems />} />
+          <Route path = "/edit-menu" element = {<EditMenu/>} />
+          <Route path = "/home" element = {<Home/>} />
+          <Route path = "/category-list" element = {<CategoryItems/>} />
+          <Route path = "/dish-list" element = {<DishItems/>} />
         </Routes>
       </Router>
     </div>

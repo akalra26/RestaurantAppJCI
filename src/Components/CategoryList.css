@@ -1,4 +1,4 @@
-img{
+/* img{
     height: 70px;
     width: 70px;
     display: flex;
@@ -8,4 +8,9 @@ img{
 .CategoryListAnchor{
     text-decoration: none;
     color: black;
-}
+} */
+
+.title:hover {
+    font-style: bold;
+    color: rgb(81, 81, 179);
+  }
