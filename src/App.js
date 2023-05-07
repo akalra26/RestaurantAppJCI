@@ -14,20 +14,23 @@ import AddCategory from './Components/AddCategory';
 import EditCategory from './Components/EditCategory';
 import EditDish from './Components/EditDish';
 import AddDish from './Components/AddDish';
+import Contactus from './Components/Contactus';
 
 function App() {
   return (
     <div className="App">
      <Navbar className = "Navbar" />
-      <h1>Welcome to my Restaurant App</h1>
+     <header><h1>Welcome to my King's Punjabi</h1></header>
       <p>Love Food, Live Food</p>
       <Router>
         <Routes>
-          <Route path = "/" element = {<MenuItems />} />
+          <Route path = "/menu-list" element = {<MenuItems />} />
           <Route path = "/add-menu" element = {<AddMenu />} />
           <Route path = "/add-category" element = {<AddCategory />} />
           <Route path = "/edit-menu" element = {<EditMenu/>} />
-          <Route path = "/home" element = {<Home/>} />
+          <Route path = "/" element = {<Home/>} />
+          <Route path = "/about" element = {<About/>} />
+          <Route path = "/contactus" element = {<Contactus/>} />
           <Route path = "/category-list" element = {<CategoryItems/>} />
           <Route path = "/dish-list" element = {<DishItems/>} />
           <Route path = "/edit-category" element = {<EditCategory/>} />
