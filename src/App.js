@@ -9,6 +9,7 @@ import EditMenu from './Components/EditMenu';
 import Home from './Components/Home';
 import About from './Components/About';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AddMenu from './Components/AddMenu';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
       <p>Love Food, Live Food</p>
       <Router>
         <Routes>
-          <Route path = "/" element = {<MenuItems />} />
+          {/* <Route path = "/" element = {<MenuItems />} /> */}
+          <Route path = "/" element = {<AddMenu />} />
           <Route path = "/edit-menu" element = {<EditMenu/>} />
           <Route path = "/home" element = {<Home/>} />
           <Route path = "/category-list" element = {<CategoryItems/>} />

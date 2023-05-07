@@ -27,7 +27,7 @@ function MenuItems() {
 
   function handleEdit(event, item) {
     console.log(`Editing item ${item.menuId}`);
-    navigate('/edit-menu');
+    navigate('/edit-menu', {state: {menuId: item.menuId}});
   }
 
   function handleDelete(item) {
@@ -68,6 +68,7 @@ function MenuItems() {
       <CategoryItems item={selectedItem} />
     ) : ( */}
       <div className="row">
+      {/* <Card> */}
         {items.map(item => (
           <div key={item.menuId} className="col-md-4 mb-4">
             <Card>
@@ -81,6 +82,16 @@ function MenuItems() {
             </Card>
           </div>
         ))}
+        <div className='col-md-4 mb-4'>
+        <Card>
+        <Card.Img variant="top" src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkeQ8Te5K2tD29NIgMhTb9FOz4eMHfkdAr0A&usqp=CAU"} alt={"Add Menu"} />
+        <Card.Body>
+        <Card.Title className='title'  onClick={() => handleClick()}>{"Add Menu"}</Card.Title>
+        <Card.Text>{"Add a new menu item"}</Card.Text>
+        <Button style={{margin: "10px"}} variant="primary" onClick={e => {e.preventDefault(); handleDelete();}}>Add Menu</Button>
+        </Card.Body>
+        </Card>
+        </div>
       </div>
   </div>
 // {/* <div className='MenuList'>
