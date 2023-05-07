@@ -64,6 +64,7 @@ function CategoryItems() {
 
   return (
     <div className='CategoryList'>
+      <h2>Categories</h2>
       <div className="row">
         {items.map(item => (
           <div key={item.categoryId} className="col-md-4 mb-4">

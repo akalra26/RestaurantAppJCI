@@ -69,6 +69,7 @@ function MenuItems() {
 
 
     <div className="MenuList">
+      <h2>Menu</h2>
     {/* {selectedItem ? (
       <CategoryItems item={selectedItem} />
     ) : ( */}

@@ -15,6 +15,7 @@ import EditCategory from './Components/EditCategory';
 import EditDish from './Components/EditDish';
 import AddDish from './Components/AddDish';
 import Contactus from './Components/Contactus';
+import Login from './Components/Login';
 
 function App() {
   return (
@@ -24,11 +25,12 @@ function App() {
       <p>Love Food, Live Food</p>
       <Router>
         <Routes>
+          <Route path = "/" element = {<Login/>} />
           <Route path = "/menu-list" element = {<MenuItems />} />
           <Route path = "/add-menu" element = {<AddMenu />} />
           <Route path = "/add-category" element = {<AddCategory />} />
           <Route path = "/edit-menu" element = {<EditMenu/>} />
-          <Route path = "/" element = {<Home/>} />
+          <Route path = "/home" element = {<Home/>} />
           <Route path = "/about" element = {<About/>} />
           <Route path = "/contactus" element = {<Contactus/>} />
           <Route path = "/category-list" element = {<CategoryItems/>} />

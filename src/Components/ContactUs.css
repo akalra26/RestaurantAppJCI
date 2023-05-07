@@ -1,0 +1,38 @@
+.ContactUs {
+    padding: 50px 0;
+  }
+  
+  .ContactUs h2 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .ContactUs h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .ContactUs p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  
+  .ContactUs address {
+    font-style: normal;
+  }
+  
+  .ContactUs form {
+    margin-top: 30px;
+  }
+  
+  .ContactUs button[type="submit"] {
+    margin-top: 20px;
+  }
+  
+  .ContactUs a {
+    color: #007bff;
+  }
+  

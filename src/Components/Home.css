@@ -1,0 +1,59 @@
+
+.hero-image {
+    position: relative;
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 50px;
+  }
+  
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+  }
+  
+  .hero-text h1 {
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .hero-text p {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+  
+ 
+  
+  .cuisine-image {
+    margin: 50px;
+    text-align: center;
+    width: 190px;
+  }
+  
+  .cuisine-image img {
+    border-radius: 50%;
+  }
+  
+  .cuisine-image h3 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .cuisine-image p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .images{
+    width: 200px;
+  }
+  

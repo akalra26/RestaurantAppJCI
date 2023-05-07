@@ -58,6 +58,7 @@ function DishItems() {
 
     return (
       <div className='MenuList'> 
+      <h2>Dishes</h2>
       <div className="row">
         {items.map(item => (
           <div key={item.dishId} className="col-md-4 mb-4">
