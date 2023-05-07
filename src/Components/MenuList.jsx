@@ -60,6 +60,11 @@ function MenuItems() {
     // Implement click logic here
   }
 
+  function handleAdd(){
+    navigate("/add-menu");
+    console.log("Adding Menu");
+  }
+
   return (
 
 
@@ -86,9 +91,9 @@ function MenuItems() {
         <Card>
         <Card.Img variant="top" src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkeQ8Te5K2tD29NIgMhTb9FOz4eMHfkdAr0A&usqp=CAU"} alt={"Add Menu"} />
         <Card.Body>
-        <Card.Title className='title'  onClick={() => handleClick()}>{"Add Menu"}</Card.Title>
+        <Card.Title className='title'   onClick={e => {e.preventDefault(); handleAdd();}}>{"Add Menu"}</Card.Title>
         <Card.Text>{"Add a new menu item"}</Card.Text>
-        <Button style={{margin: "10px"}} variant="primary" onClick={e => {e.preventDefault(); handleDelete();}}>Add Menu</Button>
+        <Button style={{margin: "10px"}} variant="primary" onClick={e => {e.preventDefault(); handleAdd();}}>Add Menu</Button>
         </Card.Body>
         </Card>
         </div>

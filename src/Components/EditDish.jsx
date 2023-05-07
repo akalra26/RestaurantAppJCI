@@ -7,13 +7,17 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
-function EditMenu() {
+function EditDish() {
   const [validated, setValidated] = useState(false);
-  const menuid = useLocation();
+  const dishid = useLocation();
+  const categoryid = useLocation();
   const navigate = useNavigate();
-  const menuNameRef = useRef(null);
-  const menuDescriptionRef = useRef(null);
-  const menuImageLinkRef = useRef(null);
+  const dishNameRef = useRef(null);
+  const dishDescriptionRef = useRef(null);
+  const dishImageLinkRef = useRef(null);
+  const dishNatureRef = useRef(null);
+  const dishPriceRef = useRef(null);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,27 +27,31 @@ function EditMenu() {
       event.stopPropagation();
     } else {
       event.preventDefault();
-      // const menuID = 0;
-      const menuname = menuNameRef.current.value;
-      const menudescription = menuDescriptionRef.current.value;
-      const menuimageLink = menuImageLinkRef.current.value;
-      const menuisDeleted = false;
-
-      const menuData = {
-        menuId: menuid.state.menuId,
-        menuName: menuname,
-        menuDescription: menudescription,
-        menuImage: menuimageLink,
-        isDeleted: menuisDeleted
+      // const dishID = 0;
+      const dishname = dishNameRef.current.value;
+      const dishdescription = dishDescriptionRef.current.value;
+      const dishimageLink = dishImageLinkRef.current.value;
+      const dishprice = dishPriceRef.current.value;
+      const dishnature = dishNatureRef.current.value;
+      const dishisDeleted = false;
+    
+      const dishData = {
+        dishId: dishid.state.dishId,
+        dishName: dishname,
+        dishDescription: dishdescription,
+        dishPrice: dishprice,
+        dishImage: dishimageLink,
+        nature: dishnature,
+        isDeleted: dishisDeleted
       };
 
-      // console.log(menuData);
+      // console.log(dishData);
 
-      axios.put(`https://localhost:7237/api/MenuTables/${menuid.state.menuId}`, menuData)
+      axios.put(`https://localhost:7237/api/DishTables/${dishid.state.dishId}`, dishData)
         .then(response => {
           console.log(response);
           alert("Updated Succesfully");
-          navigate("/");
+          navigate("/dish-list", {state:{categoryId: categoryid.state.categoryId}});
         })
         .catch(error => {
           console.log("error submiting data in put", error);
@@ -61,12 +69,12 @@ function EditMenu() {
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-4">
           <Form.Group as={Col} md="15" controlId="validationCustom01">
-            <Form.Label>Menu name</Form.Label>
+            <Form.Label>Dish name</Form.Label>
             <Form.Control
-              ref={menuNameRef}
+              ref={dishNameRef}
               required
               type="text"
-              placeholder="Menu name"
+              placeholder="Dish name"
             // defaultValue="Mark"
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -76,12 +84,40 @@ function EditMenu() {
         <Row className="mb-3">
 
           <Form.Group as={Col} md="15" controlId="validationCustom02">
-            <Form.Label>Menu Description</Form.Label>
+            <Form.Label>Dish Description</Form.Label>
             <Form.Control
-              ref={menuDescriptionRef}
+              ref={dishDescriptionRef}
               required
               type="text"
-              placeholder="Menu Description"
+              placeholder="Dish Description"
+            // defaultValue="Otto"
+            />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+
+          <Form.Group as={Col} md="15" controlId="validationCustom02">
+            <Form.Label>Dish Price</Form.Label>
+            <Form.Control
+              ref={dishPriceRef}
+              required
+              type="text"
+              placeholder="Dish Price"
+            // defaultValue="Otto"
+            />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+
+          <Form.Group as={Col} md="15" controlId="validationCustom02">
+            <Form.Label>Nature</Form.Label>
+            <Form.Control
+              ref={dishNatureRef}
+              required
+              type="text"
+              placeholder="Nature"
             // defaultValue="Otto"
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -89,13 +125,13 @@ function EditMenu() {
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} md="15" controlId="validationCustomUsername">
-            <Form.Label>Menu Image Link</Form.Label>
+            <Form.Label>Dish Image Link</Form.Label>
             {/* <InputGroup hasValidation>
             <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text> */}
             <Form.Control
-              ref={menuImageLinkRef}
+              ref={dishImageLinkRef}
               type="text"
-              placeholder="Menu Image Link"
+              placeholder="Dish Image Link"
             //   aria-describedby="inputGroupPrepend"
             //   required
             />
@@ -114,4 +150,4 @@ function EditMenu() {
 }
 
 
-export default EditMenu;
+export default EditDish;

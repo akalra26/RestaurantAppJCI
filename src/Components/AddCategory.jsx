@@ -9,14 +9,15 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 // import { useLocation } from 'react-router-dom';
 
-function AddMenu() {
+function AddCategory() {
     const [validated, setValidated] = useState(false);
-    // const menuid = useLocation();
+    const menuId = useLocation();
     const navigate = useNavigate();
-    const menuNameRef = useRef(null);
-    const menuDescriptionRef = useRef(null);
-    const menuImageLinkRef = useRef(null);
-
+    const categoryNameRef = useRef(null);
+    const categoryDescriptionRef = useRef(null);
+    const categoryImageLinkRef = useRef(null);
+    const displayOrderRef = useRef(null);
+    // console.log(menuid.state.menuid);
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -25,27 +26,29 @@ function AddMenu() {
             event.stopPropagation();
         } else {
             event.preventDefault();
-            // const menuID = 0;
-            const menuname = menuNameRef.current.value;
-            const menudescription = menuDescriptionRef.current.value;
-            const menuimageLink = menuImageLinkRef.current.value;
-            const menuisDeleted = false;
+            // const categoryID = 0;
+            const categoryname = categoryNameRef.current.value;
+            const categorydescription = categoryDescriptionRef.current.value;
+            const categoryimageLink = categoryImageLinkRef.current.value;
+            const categoryisDeleted = false;
+            const displayOrder = displayOrderRef.current.value;
 
-            const menuData = {
-                menuId: 0,
-                menuName: menuname,
-                menuDescription: menudescription,
-                menuImage: menuimageLink,
-                isDeleted: menuisDeleted
+            const categoryData = {
+                categoryId: 0,
+                categoryName: categoryname,
+                categoryDescription: categorydescription,
+                categoryImage: categoryimageLink,
+                isDeleted: categoryisDeleted
             };
 
-            console.log(menuData);
+            console.log(categoryData);
 
-            axios.post(`https://localhost:7237/api/MenuTables`, menuData)
+            axios.post(`https://localhost:7237/api/CategoryTables/${menuId.state.menuid}, ${displayOrder}`, categoryData)
                 .then(response => {
                     console.log(response);
-                    alert("Menu Added Succesfully");
-                    navigate("/");
+                    alert("Category Added Succesfully");
+                    console.log(menuId.state.menuId);
+                    navigate("/category-list", {state: {menuId: menuId.state.menuid}});
                 })
                 .catch(error => {
                     console.log("error submiting data in put", error);
@@ -61,12 +64,12 @@ function AddMenu() {
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row className="mb-4">
                     <Form.Group as={Col} md="15" controlId="validationCustom01">
-                        <Form.Label>Menu name</Form.Label>
+                        <Form.Label>Category name</Form.Label>
                         <Form.Control
-                            ref={menuNameRef}
+                            ref={categoryNameRef}
                             required
                             type="text"
-                            placeholder="Menu name"
+                            placeholder="Category name"
                         // defaultValue="Mark"
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -76,12 +79,27 @@ function AddMenu() {
                 <Row className="mb-3">
 
                     <Form.Group as={Col} md="15" controlId="validationCustom02">
-                        <Form.Label>Menu Description</Form.Label>
+                        <Form.Label>Category Description</Form.Label>
                         <Form.Control
-                            ref={menuDescriptionRef}
+                            ref={categoryDescriptionRef}
                             required
                             type="text"
-                            placeholder="Menu Description"
+                            placeholder="Category Description"
+                        // defaultValue="Otto"
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
+
+                <Row className="mb-3">
+
+                    <Form.Group as={Col} md="15" controlId="validationCustom02">
+                        <Form.Label>Display Order</Form.Label>
+                        <Form.Control
+                            ref={displayOrderRef}
+                            required
+                            type="text"
+                            placeholder="Display Order"
                         // defaultValue="Otto"
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -89,13 +107,13 @@ function AddMenu() {
                 </Row>
                 <Row className="mb-3">
                     <Form.Group as={Col} md="15" controlId="validationCustomUsername">
-                        <Form.Label>Menu Image Link</Form.Label>
+                        <Form.Label>Category Image Link</Form.Label>
                         {/* <InputGroup hasValidation>
             <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text> */}
                         <Form.Control
-                            ref={menuImageLinkRef}
+                            ref={categoryImageLinkRef}
                             type="text"
-                            placeholder="Menu Image Link"
+                            placeholder="category Image Link"
                         //   aria-describedby="inputGroupPrepend"
                         //   required
                         />
@@ -113,4 +131,4 @@ function AddMenu() {
     );
 }
 
-export default AddMenu;
+export default AddCategory;

@@ -7,13 +7,15 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
-function EditMenu() {
+function EditCategory() {
   const [validated, setValidated] = useState(false);
+  const categoryid = useLocation();
   const menuid = useLocation();
   const navigate = useNavigate();
-  const menuNameRef = useRef(null);
-  const menuDescriptionRef = useRef(null);
-  const menuImageLinkRef = useRef(null);
+  const categoryNameRef = useRef(null);
+  const categoryDescriptionRef = useRef(null);
+  const categoryImageLinkRef = useRef(null);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,27 +25,27 @@ function EditMenu() {
       event.stopPropagation();
     } else {
       event.preventDefault();
-      // const menuID = 0;
-      const menuname = menuNameRef.current.value;
-      const menudescription = menuDescriptionRef.current.value;
-      const menuimageLink = menuImageLinkRef.current.value;
-      const menuisDeleted = false;
-
-      const menuData = {
-        menuId: menuid.state.menuId,
-        menuName: menuname,
-        menuDescription: menudescription,
-        menuImage: menuimageLink,
-        isDeleted: menuisDeleted
+      // const categoryID = 0;
+      const categoryname = categoryNameRef.current.value;
+      const categorydescription = categoryDescriptionRef.current.value;
+      const categoryimageLink = categoryImageLinkRef.current.value;
+      const categoryisDeleted = false;
+    
+      const categoryData = {
+        categoryId: categoryid.state.categoryId,
+        categoryName: categoryname,
+        categoryDescription: categorydescription,
+        categoryImage: categoryimageLink,
+        isDeleted: categoryisDeleted
       };
 
-      // console.log(menuData);
+      // console.log(categoryData);
 
-      axios.put(`https://localhost:7237/api/MenuTables/${menuid.state.menuId}`, menuData)
+      axios.put(`https://localhost:7237/api/CategoryTables/${categoryid.state.categoryId}`, categoryData)
         .then(response => {
           console.log(response);
           alert("Updated Succesfully");
-          navigate("/");
+          navigate("/category-list", {state:{menuId: menuid.state.menuId}});
         })
         .catch(error => {
           console.log("error submiting data in put", error);
@@ -61,12 +63,12 @@ function EditMenu() {
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-4">
           <Form.Group as={Col} md="15" controlId="validationCustom01">
-            <Form.Label>Menu name</Form.Label>
+            <Form.Label>Category name</Form.Label>
             <Form.Control
-              ref={menuNameRef}
+              ref={categoryNameRef}
               required
               type="text"
-              placeholder="Menu name"
+              placeholder="Category name"
             // defaultValue="Mark"
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -76,12 +78,12 @@ function EditMenu() {
         <Row className="mb-3">
 
           <Form.Group as={Col} md="15" controlId="validationCustom02">
-            <Form.Label>Menu Description</Form.Label>
+            <Form.Label>Category Description</Form.Label>
             <Form.Control
-              ref={menuDescriptionRef}
+              ref={categoryDescriptionRef}
               required
               type="text"
-              placeholder="Menu Description"
+              placeholder="Category Description"
             // defaultValue="Otto"
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -89,13 +91,13 @@ function EditMenu() {
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col} md="15" controlId="validationCustomUsername">
-            <Form.Label>Menu Image Link</Form.Label>
+            <Form.Label>Category Image Link</Form.Label>
             {/* <InputGroup hasValidation>
             <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text> */}
             <Form.Control
-              ref={menuImageLinkRef}
+              ref={categoryImageLinkRef}
               type="text"
-              placeholder="Menu Image Link"
+              placeholder="Category Image Link"
             //   aria-describedby="inputGroupPrepend"
             //   required
             />
@@ -114,4 +116,4 @@ function EditMenu() {
 }
 
 
-export default EditMenu;
+export default EditCategory;

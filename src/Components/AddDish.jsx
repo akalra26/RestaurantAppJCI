@@ -9,14 +9,16 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 // import { useLocation } from 'react-router-dom';
 
-function AddMenu() {
+function AddDish() {
     const [validated, setValidated] = useState(false);
-    // const menuid = useLocation();
+    const categoryId = useLocation();
     const navigate = useNavigate();
-    const menuNameRef = useRef(null);
-    const menuDescriptionRef = useRef(null);
-    const menuImageLinkRef = useRef(null);
-
+    const dishNameRef = useRef(null);
+    const dishDescriptionRef = useRef(null);
+    const dishImageLinkRef = useRef(null);
+    const dishNatureRef = useRef(null);
+  const dishPriceRef = useRef(null);
+    // console.log(menuid.state.menuid);
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -25,27 +27,31 @@ function AddMenu() {
             event.stopPropagation();
         } else {
             event.preventDefault();
-            // const menuID = 0;
-            const menuname = menuNameRef.current.value;
-            const menudescription = menuDescriptionRef.current.value;
-            const menuimageLink = menuImageLinkRef.current.value;
-            const menuisDeleted = false;
+            // const dishID = 0;
+            const dishname = dishNameRef.current.value;
+            const dishdescription = dishDescriptionRef.current.value;
+            const dishimageLink = dishImageLinkRef.current.value;
+            const dishprice = dishPriceRef.current.value;
+            const dishnature = dishNatureRef.current.value;
+            const dishisDeleted = false;
 
-            const menuData = {
-                menuId: 0,
-                menuName: menuname,
-                menuDescription: menudescription,
-                menuImage: menuimageLink,
-                isDeleted: menuisDeleted
+            const dishData = {
+                dishId: 0,
+                dishName: dishname,
+                dishDescription: dishdescription,
+                dishPrice: dishprice,
+                dishImage: dishimageLink,
+                nature: dishnature,
+                isDeleted: dishisDeleted
             };
 
-            console.log(menuData);
+            console.log(dishData);
 
-            axios.post(`https://localhost:7237/api/MenuTables`, menuData)
+            axios.post(`https://localhost:7237/api/DishTables/${categoryId.state.categoryid}`, dishData)
                 .then(response => {
                     console.log(response);
-                    alert("Menu Added Succesfully");
-                    navigate("/");
+                    alert("Dish Added Succesfully");
+                    navigate("/dish-list", {state: {categoryId: categoryId.state.categoryid}});
                 })
                 .catch(error => {
                     console.log("error submiting data in put", error);
@@ -61,12 +67,12 @@ function AddMenu() {
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row className="mb-4">
                     <Form.Group as={Col} md="15" controlId="validationCustom01">
-                        <Form.Label>Menu name</Form.Label>
+                        <Form.Label>Dish name</Form.Label>
                         <Form.Control
-                            ref={menuNameRef}
+                            ref={dishNameRef}
                             required
                             type="text"
-                            placeholder="Menu name"
+                            placeholder="Dish name"
                         // defaultValue="Mark"
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -76,12 +82,41 @@ function AddMenu() {
                 <Row className="mb-3">
 
                     <Form.Group as={Col} md="15" controlId="validationCustom02">
-                        <Form.Label>Menu Description</Form.Label>
+                        <Form.Label>Dish Description</Form.Label>
                         <Form.Control
-                            ref={menuDescriptionRef}
+                            ref={dishDescriptionRef}
                             required
                             type="text"
-                            placeholder="Menu Description"
+                            placeholder="Dish Description"
+                        // defaultValue="Otto"
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
+
+                <Row className="mb-3">
+
+                    <Form.Group as={Col} md="15" controlId="validationCustom02">
+                        <Form.Label>Dish Price</Form.Label>
+                        <Form.Control
+                            ref={dishPriceRef}
+                            required
+                            type="text"
+                            placeholder="Dish Price"
+                        // defaultValue="Otto"
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    </Form.Group>
+                </Row>
+                <Row className="mb-3">
+
+                    <Form.Group as={Col} md="15" controlId="validationCustom02">
+                        <Form.Label>Nature</Form.Label>
+                        <Form.Control
+                            ref={dishNatureRef}
+                            required
+                            type="text"
+                            placeholder="Nature"
                         // defaultValue="Otto"
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -89,13 +124,13 @@ function AddMenu() {
                 </Row>
                 <Row className="mb-3">
                     <Form.Group as={Col} md="15" controlId="validationCustomUsername">
-                        <Form.Label>Menu Image Link</Form.Label>
+                        <Form.Label>Dish Image Link</Form.Label>
                         {/* <InputGroup hasValidation>
             <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text> */}
                         <Form.Control
-                            ref={menuImageLinkRef}
+                            ref={dishImageLinkRef}
                             type="text"
-                            placeholder="Menu Image Link"
+                            placeholder="dish Image Link"
                         //   aria-describedby="inputGroupPrepend"
                         //   required
                         />
@@ -113,4 +148,4 @@ function AddMenu() {
     );
 }
 
-export default AddMenu;
+export default AddDish;

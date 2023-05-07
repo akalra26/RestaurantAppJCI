@@ -28,8 +28,9 @@ function CategoryItems() {
   }, [deletedItemId]);
 
 
-  function handleEdit(item) {
+  function handleEdit(event, item) {
     console.log(`Editing item ${item.categoryId}`);
+    navigate('/edit-category', {state: {categoryId: item.categoryId, menuId: menuId.state.menuId}});
     // Implement edit logic here
   }
 
@@ -57,6 +58,11 @@ function CategoryItems() {
     // Implement click logic here
   }
 
+  function handleAdd(){
+    navigate("/add-category",  {state: {menuid: menuId.state.menuId}});
+    console.log("Adding Category");
+  }
+
   return (
     <div className='CategoryList'>
       <div className="row">
@@ -73,6 +79,16 @@ function CategoryItems() {
             </Card>
           </div>
         ))}
+         <div className='col-md-4 mb-4'>
+        <Card>
+        <Card.Img variant="top" src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkeQ8Te5K2tD29NIgMhTb9FOz4eMHfkdAr0A&usqp=CAU"} alt={"Add Category"} />
+        <Card.Body>
+        <Card.Title className='title'   onClick={e => {e.preventDefault(); handleAdd();}}>{"Add Category"}</Card.Title>
+        <Card.Text>{"Add a new category item"}</Card.Text>
+        <Button style={{margin: "10px"}} variant="primary" onClick={e => {e.preventDefault(); handleAdd();}}>Add Category</Button>
+        </Card.Body>
+        </Card>
+        </div>
       </div>
     </div>
 
