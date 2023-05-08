@@ -21,6 +21,7 @@ namespace RestaurantAppProject.Controllers
         }
 
         // GET: api/CategoryTables
+        //this api works on menuId
         [HttpGet("menuId={menuId}")]
         public async Task<ActionResult<IEnumerable<CategoryTable>>> GetCategoryTables(int menuId)
         {
@@ -34,6 +35,9 @@ namespace RestaurantAppProject.Controllers
             List<CategoryTable> categories = await _context.CategoryTables.ToListAsync();
 
             //List<CategoryTable> filteredList = categories.FindAll(cat => cat.IsDeleted == false);
+
+            //this part of code goes through menu_categories table first and checks if that menuId is present and if yes
+            //it's categoryid added to filteredlist
             List<int?> filteredList = new List<int?>();
             List<CategoryTable> newcatlist = new List<CategoryTable>();
             foreach (var  menuCat in menuCategories)
@@ -42,7 +46,7 @@ namespace RestaurantAppProject.Controllers
                     filteredList.Add(menuCat.CategoryId);
                 }
             }
-
+            //this checks if filtererd list contains the categoryid present in category_table and isDeleted == false and then adds it to newcatlist.
             foreach(var category in categories)
             {
                 if (filteredList.Contains(category.CategoryId) && category.IsDeleted == false)
@@ -55,7 +59,7 @@ namespace RestaurantAppProject.Controllers
             {
                 return NotFound();
             }
-            
+            //returning our output list
             return Ok(newcatlist);
             //return await _context.CategoryTables.ToListAsync();
         }
@@ -123,7 +127,7 @@ namespace RestaurantAppProject.Controllers
             try
             {
                 await _context.SaveChangesAsync();
-                //updating menu_category table
+                //updating menu_category table so as to have a record in there whenever a new category is created.
                 MenuCategory menuCategory = new MenuCategory();
                 menuCategory.MenuId = menuId;
                 menuCategory.CategoryId = categoryTable.CategoryId;
@@ -167,7 +171,7 @@ namespace RestaurantAppProject.Controllers
             {
                 return NotFound();
             }
-
+            //same soft delete as the menu table
             List<CategoryTable> categoryTables = await _context.CategoryTables.ToListAsync();
             foreach(var categoryTab in categoryTables)
             {
@@ -178,7 +182,7 @@ namespace RestaurantAppProject.Controllers
                     _context.SaveChanges();
                 }
             }
-
+            //soft delete from menu_categories as well
             List<MenuCategory> menuCategories = await _context.MenuCategories.ToListAsync();
             foreach (var menuCat in menuCategories)
             {

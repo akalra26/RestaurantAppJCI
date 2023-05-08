@@ -20,6 +20,47 @@ namespace RestaurantAppProject.Controllers
             _context = context;
         }
 
+
+        // GET: api/DishTables
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DishTable>>> GetDishTables()
+        {
+            if (_context.DishTables == null)
+            {
+                return NotFound();
+            }
+            List<DishTable> dishes = await _context.DishTables.ToListAsync();
+            // we are searching based on categoryId in CategoryDish table to check for the present DishId and then adding to filtered list
+            //List<CategoryDish> categoryDishes = await _context.CategoryDishes.ToListAsync();
+            //List<int?> filteredList = new List<int?>();
+            //List<DishTable> newdishlist = new List<DishTable>();
+            List<DishTable> filteredList = dishes.FindAll(cat => cat.IsDeleted == false);
+            //foreach (var catDish in categoryDishes)
+            //{
+            //    if (catDish.CategoryId == categoryId)
+            //    {
+            //        filteredList.Add(catDish.DishId);
+            //    }
+            //}
+
+            //this filtered list is used to check if there is any entry in the Dishtable with same DishId and adds to newdishlist.
+
+            //foreach (var dish in dishes)
+            //{
+            //    if (filteredList.Contains(dish.DishId) && dish.IsDeleted == false)
+            //    {
+            //        newdishlist.Add(dish);
+            //    }
+            //}
+
+            //if (newdishlist.Count == 0)
+            //{
+            //    return NotFound();
+            //}
+            return Ok(filteredList);
+            //return await _context.DishTables.ToListAsync();
+        }
+
         // GET: api/DishTables
         [HttpGet("categoryId={categoryId}")]
         public async Task<ActionResult<IEnumerable<DishTable>>> GetDishTables(int categoryId)
@@ -29,7 +70,7 @@ namespace RestaurantAppProject.Controllers
               return NotFound();
           }
             List<DishTable> dishes = await _context.DishTables.ToListAsync();
-
+            // we are searching based on categoryId in CategoryDish table to check for the present DishId and then adding to filtered list
             List<CategoryDish> categoryDishes = await _context.CategoryDishes.ToListAsync();
             List<int?> filteredList = new List<int?>();
             List<DishTable> newdishlist = new List<DishTable>();
@@ -41,6 +82,8 @@ namespace RestaurantAppProject.Controllers
                     filteredList.Add(catDish.DishId);
                 }
             }
+
+            //this filtered list is used to check if there is any entry in the Dishtable with same DishId and adds to newdishlist.
 
             foreach (var dish in dishes)
             {

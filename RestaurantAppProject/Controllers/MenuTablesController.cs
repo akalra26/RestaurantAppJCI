@@ -30,6 +30,7 @@ namespace RestaurantAppProject.Controllers
           }
 
             List<MenuTable> menus = await _context.MenuTables.ToListAsync();
+            //filetered list is the new list which has the menu table records which are no deleted or isDelete == false
             List<MenuTable> filteredList = menus.FindAll(cat => cat.IsDeleted == false);
             return Ok(filteredList);
             //return await _context.MenuTables.ToListAsync();
@@ -129,6 +130,7 @@ namespace RestaurantAppProject.Controllers
                 return NotFound();
             }
 
+            //instead of removing we just make isDeleted = true soft delete
             List<MenuTable> menuTables = await _context.MenuTables.ToListAsync();
             foreach(var menuTab in menuTables)
             {
@@ -139,7 +141,7 @@ namespace RestaurantAppProject.Controllers
                     _context.SaveChanges();
                 }
             }
-            
+            // any menu soft deleted has also to be deleted from menu category too
             List<MenuCategory> menuCategories = await _context.MenuCategories.ToListAsync();
             foreach (var menuCat in menuCategories)
             {
