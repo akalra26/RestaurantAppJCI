@@ -13,7 +13,7 @@ function MenuItems() {
   // const [selectedItem, setSelectedItem] = useState(null);
   const navigate = useNavigate();
 
-
+// fetching the data
   useEffect(() => {
     axios.get("https://localhost:7237/api/MenuTables")
       .then(response => {
@@ -25,11 +25,13 @@ function MenuItems() {
       });
   }, [deletedItemId]);
 
+  //edit function to update 
   function handleEdit(event, item) {
     console.log(`Editing item ${item.menuId}`);
     navigate('/edit-menu', {state: {menuId: item.menuId}});
   }
 
+  //delete function to delete
   function handleDelete(item) {
     // event.preventDefault();
     const confirmDelete = window.confirm(`Are you sure you want to delete ${item.menuName}?`);

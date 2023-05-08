@@ -27,6 +27,7 @@ function Home() {
             <h2>Our Speciality</h2>
           </Col>
         </Row>
+        <Container>
         <Row>
           <Col md={4}>
             <div className="cuisine-image">
@@ -50,6 +51,7 @@ function Home() {
             </div>
             </Col>
         </Row>
+        </Container>
             </Container>
     </div>
   );

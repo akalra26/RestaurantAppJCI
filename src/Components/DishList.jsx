@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './DishList.css';
 import { useLocation } from 'react-router-dom';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 
 function DishItems() {
@@ -77,7 +77,7 @@ function DishItems() {
         <Card>
         <Card.Img variant="top" src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkeQ8Te5K2tD29NIgMhTb9FOz4eMHfkdAr0A&usqp=CAU"} alt={"Add Category"} />
         <Card.Body>
-        <Card.Title className='title'   onClick={e => {e.preventDefault(); handleAdd();}}>{"Add Category"}</Card.Title>
+        <Card.Title className='title'   onClick={e => {e.preventDefault(); handleAdd();}}>{"Add Dish"}</Card.Title>
         <Card.Text>{"Add a new category item"}</Card.Text>
         <Button style={{margin: "10px"}} variant="primary" onClick={e => {e.preventDefault(); handleAdd();}}>Add Dish</Button>
         </Card.Body>
